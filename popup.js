@@ -1,18 +1,22 @@
-let monitorSwitch = document.getElementById('monitorSwitch');
-let monitorStatus = false; // false means off
-monitorSwitch.style.backgroundColor = monitorStatus ? "#3aa757" : "#FF0000";
+var monitorSwitch = document.getElementById('monitorSwitch');
+var monitorStatus = false;
+
+chrome.storage.sync.get('turnOn', function(data) {
+	monitorStatus = data.turnOn
+	monitorSwitch.style.backgroundColor = monitorStatus ? "#3aa757" : "#FF0000";
+	print(monitorStatus);
+});
+
 
 monitorSwitch.onclick = function(element) {
-	toggleSwitch();
-};
-
-function toggleSwitch() {
 	monitorStatus = !monitorStatus;
 	chrome.storage.sync.set({turnOn: monitorStatus}, function() {
 		monitorSwitch.style.backgroundColor = monitorStatus ? "#3aa757" : "#FF0000";
+		print(monitorStatus);
 	})
-}
+};
 
+// For debug usage
 function print(str){
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 		chrome.tabs.executeScript(
