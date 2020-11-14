@@ -15,7 +15,7 @@ chrome.runtime.onInstalled.addListener(function() {
 
 	chrome.storage.onChanged.addListener(function(changes, namespace) { 
 		if(changes.turnOn.newValue === true) {
-			console.log("turn on ");
+			console.log("Polling turn on ");
 			var count = 0;
 			var alarmInfo = {
 				when: Date.now(),
@@ -24,14 +24,18 @@ chrome.runtime.onInstalled.addListener(function() {
 
 			chrome.alarms.onAlarm.addListener(function(alarm){
 				console.log(count++)
+				// TODO
+				// Refresh this tab
+				// Find keyword
+				// Notification
+				// Action
 			});
 
 			chrome.alarms.create('BenDone Polling', alarmInfo);
 		} else {
-			console.log("turn off");
+			console.log("Polling turn off");
 			chrome.alarms.clearAll();
 		}
 	});
 });
-
 
