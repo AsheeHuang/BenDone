@@ -1,4 +1,7 @@
 chrome.runtime.onInstalled.addListener(function() {
+	var count = 0;
+	var dinnerUrl = 'http://localhost:3001'; // localhost is temp
+
 	chrome.storage.sync.set({turnOn: false}, function() {
 	  console.log("The monitor is default off");
 	});
@@ -13,28 +16,25 @@ chrome.runtime.onInstalled.addListener(function() {
 		}]);
 	});
 
+	chrome.alarms.onAlarm.addListener(function(alarm){
+		console.log(count++);
+		chrome.tabs.create({index: 0, url: dinnerUrl, active: false}, function(tab) {
+			chrome.tabs.executeScript(tab.id, {file: 'polling.js'});
+		})
+	});
+
 	chrome.storage.onChanged.addListener(function(changes, namespace) { 
 		if(changes.turnOn.newValue === true) {
 			console.log("Polling turn on ");
-			var count = 0;
 			var alarmInfo = {
 				when: Date.now(),
-				periodInMinutes : 0.1 //6 seconds
+				periodInMinutes : 0.15 //9 seconds
 			}
-
-			chrome.alarms.onAlarm.addListener(function(alarm){
-				console.log(count++)
-				// TODO
-				// Refresh this tab
-				// Find keyword
-				// Notification
-				// Action
-			});
-
 			chrome.alarms.create('BenDone Polling', alarmInfo);
 		} else {
-			console.log("Polling turn off");
+			count = 0;
 			chrome.alarms.clearAll();
+			console.log("Polling turn off");
 		}
 	});
 });

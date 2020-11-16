@@ -1,11 +1,14 @@
  {
-   "name": "Synology Dinner Notifycation",
+   "name": "Synology Dinner Notification",
    "version": "1.0",
    "description": "Dinner",
    "permissions": ["storage",
 				   "declarativeContent",
 				   "activeTab",
-				   "alarms"],
+				   "tabs",
+				   "alarms",
+				   "notifications",
+   				   "<all_urls>"],
    "background": {
 		"scripts": ["background.js"],
 		"persistent": false
