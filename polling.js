@@ -12,6 +12,9 @@ var body = document.documentElement.innerHTML
 if (body.includes('已開放店家')) {
 	// Notification
 	notify = new Notification("Dinner is coming");
+	// Send to Synology chat
+	var msg = parseOrderMsg(body);
+	//
 	// Action
 	// close monitor
 	chrome.storage.sync.set({turnOn: false}, function() {
@@ -22,3 +25,17 @@ if (body.includes('已開放店家')) {
 	window.close();
 }
 
+function parseOrderMsg(body) {
+	msg = ""
+	choice = document.getElementsByClassName('card-content');
+
+	for (i = 0 ; i < choice.length; i++) {
+		msg = msg + choice[i].innerText.replace(/\n/g, " ") + "\n";
+	}
+	return msg
+}
+
+function sendNotify2SynoChat(msg) {
+
+
+}
