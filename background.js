@@ -1,19 +1,9 @@
 chrome.runtime.onInstalled.addListener(function() {
 	var count = 0;
-	var dinnerUrl = 'http://localhost:3001'; // localhost is temp
+	var dinnerUrl = 'https://dinner.synology.com/dinner/order'; // localhost is temp
 
 	chrome.storage.sync.set({turnOn: false}, function() {
 	  console.log("The monitor is default off");
-	});
-
-	chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-		chrome.declarativeContent.onPageChanged.addRules([{
-			conditions: [new chrome.declarativeContent.PageStateMatcher({
-				pageUrl: {hostEquals: 'localhost'},
-				})
-			],
-			actions: [new chrome.declarativeContent.ShowPageAction()]
-		}]);
 	});
 
 	chrome.alarms.onAlarm.addListener(function(alarm){

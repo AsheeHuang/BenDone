@@ -14,7 +14,9 @@ if (body.includes('已開放店家')) {
 	notify = new Notification("Dinner is coming");
 	// Action
 	// close monitor
-	chrome.storage.sync.set({turnOn: false});
+	chrome.storage.sync.set({turnOn: false}, function() {
+		console.log("Turn off monitor")
+	});
 } else {
 	// close tab
 	window.close();
