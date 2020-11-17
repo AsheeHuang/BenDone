@@ -1,7 +1,7 @@
 // ask permission from user
-if (Notification.permission === 'granted') {
+if (Notification.permission !== 'granted') {
 	Notification.requestPermission().then(function (permission) {
-		if (permission == 'granted') {
+		if (permission === 'granted') {
 			console.log("Success");
 		}
 	});
