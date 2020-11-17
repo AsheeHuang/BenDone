@@ -3,7 +3,7 @@ var monitorStatus = false;
 
 chrome.storage.sync.get('turnOn', function(data) {
 	monitorStatus = data.turnOn
-	monitorSwitch.style.backgroundColor = monitorStatus ? "#3aa757" : "#FF0000";
+	monitorSwitch.checked = data.turnOn;
 	print(monitorStatus);
 });
 
@@ -11,7 +11,7 @@ chrome.storage.sync.get('turnOn', function(data) {
 monitorSwitch.onclick = function(element) {
 	monitorStatus = !monitorStatus;
 	chrome.storage.sync.set({turnOn: monitorStatus}, function() {
-		monitorSwitch.style.backgroundColor = monitorStatus ? "#3aa757" : "#FF0000";
+		monitorSwitch.checked = monitorStatus;
 		print(monitorStatus);
 	})
 };
