@@ -1,7 +1,7 @@
 chrome.runtime.onInstalled.addListener(function() {
 	var count = 0;
-	//var dinnerUrl = 'https://dinner.synology.com/dinner/order';
-	var dinnerUrl = 'http://localhost:3001';
+	var dinnerUrl = 'https://dinner.synology.com/dinner/order';
+	//var dinnerUrl = 'http://localhost:3001';
 
 	chrome.storage.sync.set({turnOn: false}, function() {
 	  console.log("The monitor is default off");
@@ -19,7 +19,7 @@ chrome.runtime.onInstalled.addListener(function() {
 			console.log("Polling turn on ");
 			var now  = new Date();
 			var alarmInfo = {
-				when: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0).getTime(),
+				when: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 14, 50, 0, 0).getTime(),
 				periodInMinutes : 1
 			}
 			chrome.alarms.create('BenDone Polling', alarmInfo);
