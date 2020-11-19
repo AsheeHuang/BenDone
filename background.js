@@ -18,11 +18,18 @@ chrome.runtime.onInstalled.addListener(function() {
 		if(changes.turnOn.newValue === true) {
 			console.log("Polling turn on ");
 			var now  = new Date();
+			var startingTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 14, 50, 0, 0);
 			var alarmInfo = {
-				when: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 14, 50, 0, 0).getTime(),
+				when: startingTime.getTime(),
 				periodInMinutes : 1
 			}
 			chrome.alarms.create('BenDone Polling', alarmInfo);
+
+			//check polling is available
+			chrome.tabs.create({index: 0, url: dinnerUrl, active: true}, function(tab) {
+				chrome.tabs.executeScript(tab.id, {file: 'check.js'});
+			})
+			alert(startingTime > now ? "Polling will be started at " + startingTime.toLocaleString() : "Start polling");
 		} else {
 			count = 0;
 			chrome.alarms.clearAll();

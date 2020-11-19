@@ -1,13 +1,4 @@
-var webhookurl = "https://chat.synology.com/webapi/entry.cgi?api=SYNO.Chat.External&method=incoming&version=2&token=%XXXXXXXXXXXXXXXXXXXXXXXXXXx"
-
-// ask permission from user
-if (Notification.permission !== 'granted') {
-	Notification.requestPermission().then(function (permission) {
-		if (permission === 'granted') {
-			console.log("Success");
-		}
-	});
-}
+var webhookurl = "https://chat.synology.com/webapi/entry.cgi?api=SYNO.Chat.External&method=incoming&version=2&token=XXXXXXXXXXXXXXXXXXX"
 
 // Find keyword
 var body = document.documentElement.innerHTML
@@ -18,7 +9,7 @@ if (body.includes('已開放店家')) {
 	var msg = parseOrderMsg(body);
 	sendNotify2SynoChat(msg);
 
-	// Auto Order
+	// TODO : Auto Order
 	
 	// close monitor
 	chrome.storage.sync.set({turnOn: false}, function() {
